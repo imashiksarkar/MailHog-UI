@@ -47,6 +47,12 @@
 
           <ul class="nav navbar-nav navbar-right">
             <li>
+              <a href="#" ng-click="toggleTheme(); $event.preventDefault()" title="Toggle dark mode">
+                <span class="glyphicon glyphicon-adjust"></span>
+                {{ theme === 'dark' ? 'Light' : 'Dark' }} mode
+              </a>
+            </li>
+            <li>
               <a target="_blank" href="https://github.com/mailhog/MailHog">
                 <img src="images/github.png" height="16" alt="GitHub"> GitHub
               </a>

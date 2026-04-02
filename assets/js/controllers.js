@@ -40,6 +40,33 @@ mailhogApp.controller('MailCtrl', function ($scope, $http, $sce, $timeout) {
   $scope.cache = {};
   $scope.previewAllHeaders = false;
 
+  function applyTheme(theme) {
+    if (!document || !document.body) { return; }
+    document.body.classList.remove('theme-dark');
+    if (theme === 'dark') {
+      document.body.classList.add('theme-dark');
+    }
+  }
+
+  $scope.theme = 'light';
+  if (typeof(Storage) !== "undefined") {
+    $scope.theme = localStorage.getItem("theme") || $scope.theme;
+  }
+  if ($scope.theme === 'light' && window.matchMedia) {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      $scope.theme = 'dark';
+    }
+  }
+  applyTheme($scope.theme);
+
+  $scope.toggleTheme = function() {
+    $scope.theme = ($scope.theme === 'dark') ? 'light' : 'dark';
+    if (typeof(Storage) !== "undefined") {
+      localStorage.setItem("theme", $scope.theme);
+    }
+    applyTheme($scope.theme);
+  }
+
   $scope.eventsPending = {};
   $scope.eventCount = 0;
   $scope.eventDone = 0;
